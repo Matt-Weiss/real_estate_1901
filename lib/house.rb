@@ -11,4 +11,13 @@ class House
     @rooms << room
   end
 
+  def rooms_from_category(category)
+    @rooms.select {|room| room.category == category}
+  end
+
+  def area
+    @rooms.inject(0){|sum, room| sum + room.area}
+  end
+
+  
 end
