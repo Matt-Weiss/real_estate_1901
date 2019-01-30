@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require './lib/room'
 require './lib/house'
+require 'pry'
 
 class HouseTest < Minitest::Test
 
@@ -53,4 +54,32 @@ class HouseTest < Minitest::Test
 
     assert_equal 1900, @house.area
   end
+
+  def test_price_per_sq_ft
+    @house.add_room(@room_1)
+    @house.add_room(@room_2)
+    @house.add_room(@room_3)
+    @house.add_room(@room_4)
+# binding.pry
+    assert_equal 210.53, @house.price_per_square_foot
+  end
+
+  def test_rooms_can_sort_by_area
+    @house.add_room(@room_1)
+    @house.add_room(@room_2)
+    @house.add_room(@room_3)
+    @house.add_room(@room_4)
+
+    assert [@room_1, @room_2, @room_3, @room_4], @house.rooms_sorted_by_area
+  end
+
+  def test_rooms_can_list_by_category
+    @house.add_room(@room_1)
+    @house.add_room(@room_2)
+    @house.add_room(@room_3)
+    @house.add_room(@room_4)
+
+    assert_equal(({:bedroom => [@room_1, @room_2], :living_room => [@room_3], :basement => [@room_4]}), @house.rooms_by_category)
+  end
+
 end
